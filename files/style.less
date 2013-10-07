@@ -1,0 +1,249 @@
+/**************************************************************/
+/*                                                            */
+/*                         style.less                         */
+/*                                                            */
+/*                    -- デザイン系全部 --                    */
+/*                                                            */
+/**************************************************************/
+/*------------------------------*/
+/*             変数             */
+/*------------------------------*/
+/* 色設定 */
+@text:#333; // 全体の文字色
+@bg:#EEE; // メイン背景色
+
+/* その他 */
+@font-size: 15px;
+@side-padding:5%;
+@mincho:'ヒラギノ明朝 Pro W3','Hiragino Mincho Pro','ＭＳ Ｐ明朝','MS PMincho',serif;
+
+/*------------------------------*/
+/*            共通部            */
+/*------------------------------*/
+/* HTML構造に関わる部分 */
+html {
+	margin-bottom:1px;
+	height:100%;
+	width:100%;
+	overflow-y:scroll;
+}
+
+body {
+	background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAPklEQVQYV2NkQAO3b9z+r6qhyogujiIAU4RNMVwhuiQ6H6wQl3XI4oy4FMHcCJPHcDS6J2A2EqUQpHgAFQIAic4nmJNduMMAAAAASUVORK5CYII=') repeat, @bg;
+	line-height:1.6;
+	font-size:@font-size;
+	color:@text;
+	margin:0;
+	letter-spacing:0.15em;
+	font-family:@mincho;
+}
+
+/* パーツ */
+a {
+	img { border:0; }
+
+	&:link {
+		color:#274A78;
+		text-decoration:none;
+	}
+	
+	&:visited {
+		color:#6D89AD;
+	}
+
+	&:hover {
+		a:link;
+		text-decoration:underline;
+	}
+}
+
+p {
+	margin:5px 0;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	
+	&.indent {
+		text-indent:1em;
+	}
+}
+
+table {
+	margin:0 auto;
+	border-collapse:collapse;
+	
+	td {
+		padding:5px;
+		vertical-align:middle;
+	}
+}
+
+ul {
+	padding-left:2em;
+	margin:0;
+}
+
+input {
+	font-size:110%;
+
+	&[type=submit] {
+		.btn;
+	}
+
+	&[type=text] {
+		padding:5px;
+	}
+}
+
+label {
+	margin:5px;
+	margin-top:7px;
+}
+
+h1, h2 {
+	margin:0;
+}
+
+/*------------------------------*/
+/*        ページ構成要素        */
+/*------------------------------*/
+/* いろいろ */
+@tex-height:150px;
+
+#container {
+	width:90%;
+	margin:50px auto;
+	background:#FFF;
+	padding:15px;
+	border:1px solid #CCC;
+	border-radius:5px;
+}
+
+header {
+	margin:7px 2px;
+	border-top:3px double #AAA;
+	border-bottom:3px double #AAA;
+	text-align:center;
+	padding:15px 0;
+	line-height:1.3;
+
+	span {
+		letter-spacing:0.1em;
+	}
+
+	h1 {
+		border-radius:3px;
+		color:#777;
+		font-size:300%;
+		letter-spacing:0.2em;
+		text-shadow: 0 0 2px #DDD; 
+	}
+}
+
+article {
+	overflow:hidden;
+}
+
+footer {
+	margin-top:20px;
+}
+
+section {
+	.boxsizing;
+	width:49.5%;
+	margin-top:1%;
+	padding:10px;
+	background:#F3F3F3;
+	border:1px solid #D4D4D4;
+	border-radius:3px;
+
+	&:hover {
+		background:#EAEAEA;
+	}
+}
+
+#set {
+	width:100%;
+}
+
+#point {
+	color:#555;
+	margin-top:-30px;
+	font-size:70px;
+	text-align:center;
+	letter-spacing:0.1em;
+	
+	span:not(#now) {
+		font-size:50%;
+		vertical-align:sub;
+	}
+}
+
+#log {
+	margin-top:5px;
+	padding:10px;
+	height:200px;
+	border:1px solid #DDD;
+	background:#FAFAFA;
+	overflow:auto;
+}
+
+/*------------------------------*/
+/*             関数             */
+/*------------------------------*/
+/* 線形グラデーション */
+.gradient(@s:#fff, @e:#000) {
+	// ふえぇ…早く統一してよぉ…。
+	background: (@s + @e) / 2;
+	background: -webkit-gradient(linear, left top, left bottom, from(@s), to(@e));
+	background: -webkit-linear-gradient(top, @s, @e);
+	background: -moz-linear-gradient(top, @s, @e);
+	background: -o-linear-gradient(top, @s, @e);
+	background: linear-gradient(to bottom, @s, @e); // 要検証
+}
+
+/* アニメーション系 */
+.trans(@arg) {
+	-webkit-transition:@arg;
+	-moz-transition:@arg;
+	-o-transition:@arg;
+	transition:@arg;
+}
+
+/* box-sizing */
+.boxsizing(@arg:border-box) {
+	-moz-box-sizing: @arg;
+	-webkit-box-sizing: @arg;
+	box-sizing: @arg;
+}
+
+/* display:box */
+.boxdisplay {
+	display:-moz-box;
+	display:-webkit-box;
+	display:box;
+}
+
+/* box-flex */
+.boxflex(@arg) {
+	-moz-box-flex:@arg;
+	-webkit-box-flex:@arg;
+	box-flex:@arg;
+}
+
+/* button */
+.btn {
+	color:#3A3A3A;
+	border:1px solid #AAA;
+	background:#E0E0E0;
+	.gradient(#F5F5F5, #D5D5D5);
+	padding:5px 20px 4px;
+	text-shadow:0 1px 0 #FFF;
+	border-radius:4px;
+	box-shadow:0 1px 0 #FFF, inset 0 1px 0 #FFF, inset 0 0 7px rgba(50, 50, 50, 0.1);
+
+	&:active {
+		background:#DDD;
+		.gradient(#D5D5D5, #F5F5F5);
+		box-shadow:0 0 7px #DDD, inset 0 0 7px rgba(255, 255, 255, 0.3);
+	}
+}
