@@ -16,8 +16,6 @@ node.js と socket.io をインストールした上で、`node server.js`でサ
 
 `http://(IPアドレス):3000/`にアクセスしてください。
 
-以上です。
-
 `http://(IPアドレス):3000/SubmitForm`と
 `http://(IPアドレス):3000/SubmitAnswer`
 というページも用意してあります。
@@ -27,12 +25,13 @@ node.js と socket.io をインストールした上で、`node server.js`でサ
 --------------------
 * <http://blog.livedoor.jp/k_yon/archives/52494323.html>
 * <http://komeisugiura.jp/software/say.html>
-
+からパクって使っています。
 
 お知らせ
 --------
-これを使って優勝したら、私に何かください。
+もし、これを使って優勝したら、私に何かください。
 北海道な私は、ドクターペッパーの入手が難しいです。
+私に、FPGAについて教えるとかでも良いです。
 よろしくお願いします。
 
 宛先(所属)は、server.js内にあります。
