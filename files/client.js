@@ -199,7 +199,7 @@ $(function() {
 			},
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			cache : true,
+			cache : false,
 			success : function(data) {
 				if(data['error'] != null) return;
 				var audio = new Audio("data:audio/wav;base64," + data['result']['audio']);

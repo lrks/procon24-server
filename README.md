@@ -12,19 +12,32 @@ Procon24 Server
 
 使い方
 ------
-node.js と socket.io をインストールした上で、`node server.js`でサーバを起動します。
+## 準備
+1. node.js と socket.io をインストールしておく
+2. `node server.js`
 
-`http://(IPアドレス):3000/`にアクセスしてください。
+## 練習
+1. `http://(IPアドレス):3000/`にアクセス
 
-`http://(IPアドレス):3000/SubmitForm`と
-`http://(IPアドレス):3000/SubmitAnswer`
-というページも用意してあります。
+2. 右上のフォームにそれぞれ
 
+* `Flag`  問題文("Flag"なのは趣味です)
+* `Time(s)`  競技時間(秒数)
+* `Token`  識別用トークン
+
+を入力します。
+
+3. `http://(IPアドレス):3000/SubmitForm`や、スクリプトなどから、`http://(IPアドレス):3000/SubmitAnswer`にPOSTで回答を送信します
+
+4. `http://(IPアドレス):3000/` に試合状況が表示されます
 
 「実況」機能について
 --------------------
+喋ります。音を出してください。
+
 * <http://blog.livedoor.jp/k_yon/archives/52494323.html>
 * <http://komeisugiura.jp/software/say.html>
+
 からパクって使っています。
 
 お知らせ

@@ -20,8 +20,7 @@ var FILES = [
 	"/style.less", 
 	"/less.js", 
 	"/form.html", 
-	"/result.html",
-	"/skroll.js"
+	"/result.html"
 ];
 
 
