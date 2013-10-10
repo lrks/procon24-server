@@ -20,7 +20,9 @@ var FILES = [
 	"/style.less", 
 	"/less.js", 
 	"/form.html", 
-	"/result.html"
+	"/result.html",
+	"/capture.html",
+	"/capture.js"
 ];
 
 
@@ -123,8 +125,10 @@ function handler(req, res) {
 	// 解析
 	var parse = url.parse(req.url, true);
 
-	// 回答処理
-	if (parse.pathname === '/SubmitAnswer' && req.method === 'POST') {
+	// 回答処理 と 画像処理入りましたー...
+	if (req.method === 'POST' && 
+			(parse.pathname === '/SubmitAnswer' || parse.pathname === '/upload')) {
+		
 		var body = '';
 	
 		req.on('data', function(chunk) {
@@ -133,8 +137,38 @@ function handler(req, res) {
 	
 		req.on('end', function() {
 			var query = qs.parse(body);
-			parseAnswer({flag:query.answer, token:query.playerid});
+			if (parse.pathname === '/SubmitAnswer') {
+				parseAnswer({flag:query.answer, token:query.playerid});
+			} else if (parse.pathname === '/upload') {
+				setImage(query.image, query.booth, query.count);
+				res.writeHead(200);
+				res.end("OK");
+				return;
+			}
 		});
+	}
+
+	// 画像処理はここでも入ります...
+	var ipath = parse.pathname.match('^/upload/([0-9]{2})_([0-9]{3})\.jpg$');
+	if (ipath && ipath.length === 3) {	
+		var img = getImage(parseInt(ipath[1]), parseInt(ipath[2]));
+		if (img) {
+			res.writeHead(200, {'Content-Type':'image/jpeg'});
+			res.end(img);
+			return;
+		}
+	}
+
+	if (parse.pathname === '/upload/clear') {
+		clearImage();
+		res.writeHead(200);
+		res.end("OK");
+	}
+
+	// 緊急対応
+	if (parse.pathname === '/upload') {
+		res.writeHead(200);
+		res.end("OK");		
 	}
 
 	// 静的ファイル配信
@@ -230,5 +264,39 @@ function parseAnswer(obj) {
 	}
 
 	io.sockets.emit('answerFlagResponse', res);
+}
+
+/*------------------------------------*/
+/*           画像覚えておく           */
+/*------------------------------------*/
+var IMAGE = new Array();	// ごめん
+function setImage(data, booth, count) {
+	// チェック
+	if (getImage(booth, count)) {
+		console.log("   collision");
+		return;
+	}
+
+	var img = data.replace("data:image/jpeg;base64,", "");
+	IMAGE.push({image:new Buffer(img, 'base64'), booth:booth, count:count});
+}
+
+/*------------------------------------*/
+/*            画像取り出し            */
+/*------------------------------------*/
+function getImage(booth, count) {
+	var len = IMAGE.length;
+	for (var i=0; i<len; i++) {
+		var obj = IMAGE[i];
+		if (obj.booth == booth && obj.count == count) return obj.image;
+	}
+	return null;
+}
+
+/*------------------------------------*/
+/*              画像消す              */
+/*------------------------------------*/
+function clearImage() {
+	IMAGE = [];
 }
 
