@@ -128,16 +128,15 @@ function handler(req, res) {
 	// 回答処理 と 画像処理入りましたー...
 	if (req.method === 'POST' && 
 			(parse.pathname === '/SubmitAnswer' || parse.pathname === '/upload')) {
-		
 		var body = '';
-	
+
 		req.on('data', function(chunk) {
 			body += chunk;
 		});
 	
 		req.on('end', function() {
 			var query = qs.parse(body);
-			if (parse.pathname === '/SubmitAnswer') {
+			if (parse.pathname === '/SubmitAnswer' || parse.pathname === '/result.html') {
 				parseAnswer({flag:query.answer, token:query.playerid});
 			} else if (parse.pathname === '/upload') {
 				setImage(query.image, query.booth, query.count);
@@ -163,12 +162,14 @@ function handler(req, res) {
 		clearImage();
 		res.writeHead(200);
 		res.end("OK");
+		return;
 	}
 
 	// 緊急対応
 	if (parse.pathname === '/upload') {
 		res.writeHead(200);
-		res.end("OK");		
+		res.end("OK");
+		return;
 	}
 
 	// 静的ファイル配信
