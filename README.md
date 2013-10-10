@@ -31,6 +31,21 @@ Procon24 Server
 
 4. `http://(IPアドレス):3000/` に試合状況が表示されます
 
+
+画像配信機能
+------------
+`http://(IPアドレス):3000/capture.html`です。  
+この機能に関するソースコードがとても汚いのは、デスマのせいです。
+
+なお、getUserMediaについては、
+
+* <http://blog.o24.me/?p=253>
+* <http://www.atmarkit.co.jp/fwcr/design/tool/ajimi01/01.html>
+* <http://mogg.hatenablog.com/entry/2013/06/04/004055>
+
+を参考にしています。
+
+
 「実況」機能について
 --------------------
 喋ります。音を出してください。
